@@ -30,6 +30,9 @@ class Comment(models.Model):
 class PostLike(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     from_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    like = models.BooleanField(default=False)
+    dislike = models.BooleanField(default=False)
+    laugh = models.BooleanField(default=False)
 
     def __str__(self) -> str:
         return f'like from {self.from_user} on post {self.post}'
@@ -39,6 +42,9 @@ class PostLike(models.Model):
 class CommentLike(models.Model):
     comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
     from_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    like = models.BooleanField(default=False)
+    dislike = models.BooleanField(default=False)
+    laugh = models.BooleanField(default=False)
 
     def __str__(self) -> str:
         return f'like from {self.from_user} on comment {self.comment}'

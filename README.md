@@ -1,4 +1,6 @@
 # Next Steps
+- build out frontend to test endpoints
+- change like model to a reaction
 - Set up celery with redis to send scheduled emails
 
 # Useful commands
