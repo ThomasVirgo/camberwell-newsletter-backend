@@ -1,33 +1,32 @@
 from rest_framework import viewsets
-from .models import Post, CommentLike, Comment, PostLike
-from .serializers import PostSerializer, PostLikeSerializer, CommentLikeSerializer, CommentSerializer
+from .models import Post, CommentLike, Comment, PostLike, Suggestion, SuggestionComment, SuggestionVote
+from .serializers import PostSerializer, PostLikeSerializer, CommentLikeSerializer, CommentSerializer, SuggestionSerializer, SuggestionCommentSerializer, SuggestionVoteSerializer
 
 
 class PostViewSet(viewsets.ModelViewSet):
-    """
-    A viewset for viewing and editing post instances.
-    """
     serializer_class = PostSerializer
     queryset = Post.objects.all()
 
-
 class CommentViewSet(viewsets.ModelViewSet):
-    """
-    A viewset for viewing and editing comment instances.
-    """
     serializer_class = CommentSerializer
     queryset = Comment.objects.all()
 
 class CommentLikeViewSet(viewsets.ModelViewSet):
-    """
-    A viewset for viewing and editing post like instances.
-    """
     serializer_class = CommentLikeSerializer
     queryset = CommentLike.objects.all()
 
 class PostLikeViewSet(viewsets.ModelViewSet):
-    """
-    A viewset for viewing and editing comment like instances.
-    """
     serializer_class = PostLikeSerializer
     queryset = PostLike.objects.all()
+
+class SuggestionViewSet(viewsets.ModelViewSet):
+    serializer_class = SuggestionSerializer
+    queryset = Suggestion.objects.all()
+
+class SuggestionCommentViewSet(viewsets.ModelViewSet):
+    serializer_class = PostLikeSerializer
+    queryset = SuggestionComment.objects.all()
+
+class SuggestionVoteViewSet(viewsets.ModelViewSet):
+    serializer_class = SuggestionVoteSerializer
+    queryset = SuggestionVote.objects.all()

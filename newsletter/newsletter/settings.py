@@ -34,8 +34,8 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'rest_framework',
 	'rest_framework.authtoken',
-    'authemail',
 	'accounts',
+    'authemail',
     'posts',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -112,7 +112,7 @@ EMAIL_BCC = 'tomcvirgo@gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 
-AUTH_EMAIL_VERIFICATION = False # set to True once sorted email
+AUTH_EMAIL_VERIFICATION = True # set to True once sorted email
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
