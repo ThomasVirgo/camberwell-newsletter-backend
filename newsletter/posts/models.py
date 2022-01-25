@@ -1,6 +1,12 @@
+from distutils.command.upload import upload
 from django.db import models
 from django.conf import settings
 from django.db.models.deletion import CASCADE
+
+from gdstorage.storage import GoogleDriveStorage
+
+# Define Google Drive Storage
+gd_storage = GoogleDriveStorage()
 
 
 class Post(models.Model):
@@ -8,7 +14,7 @@ class Post(models.Model):
     title = models.CharField(max_length = 200)
     content = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
-    image = models.ImageField(blank=True)
+    image = models.ImageField(blank=True, upload_to='posts', storage=gd_storage)
     gif = models.CharField(max_length=1000, blank=True)
     def __str__(self) -> str:
         return f'post: {self.title}'

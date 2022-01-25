@@ -4,3 +4,4 @@ djangorestframework>=3.0
 django-rest-authemail>=2.0
 pillow>=8.0
 django-cors-headers>=3.0
+django-googledrive-storage>=1.0

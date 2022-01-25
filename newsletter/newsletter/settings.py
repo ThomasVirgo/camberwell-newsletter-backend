@@ -44,9 +44,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'gdstorage',
 ]
 
 AUTH_USER_MODEL = 'accounts.MyUser'
+
+GOOGLE_DRIVE_STORAGE_JSON_KEY_FILE = os.path.join(BASE_DIR, 'client_secrets.json')
+GOOGLE_DRIVE_STORAGE_MEDIA_ROOT = 'images'
 
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
