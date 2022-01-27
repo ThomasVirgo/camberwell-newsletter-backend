@@ -1,9 +1,10 @@
 from rest_framework import viewsets
 from .models import Post, CommentLike, Comment, PostLike, Suggestion, SuggestionComment, SuggestionVote
 from .serializers import PostSerializer, PostLikeSerializer, CommentLikeSerializer, CommentSerializer, SuggestionSerializer, SuggestionCommentSerializer, SuggestionVoteSerializer
-
+from rest_framework.permissions import IsAuthenticated
 
 class PostViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
     serializer_class = PostSerializer
     queryset = Post.objects.all()
 

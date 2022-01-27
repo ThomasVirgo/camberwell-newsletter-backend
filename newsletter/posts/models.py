@@ -15,7 +15,6 @@ class Post(models.Model):
     content = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(blank=True, upload_to='posts', storage=gd_storage)
-    gif = models.CharField(max_length=1000, blank=True)
     def __str__(self) -> str:
         return f'post: {self.title}'
 
