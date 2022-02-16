@@ -19,13 +19,6 @@ class Post(models.Model):
     def __str__(self) -> str:
         return f'post: {self.title}'
 
-    def get_author_name(self):
-        user_model = get_user_model()
-        user = user_model.objects.get(email=self.author)
-        return {
-            "first_name": user.first_name,
-            "last_name": user.last_name
-        }
 
 class Comment(models.Model):
     content = models.TextField()
