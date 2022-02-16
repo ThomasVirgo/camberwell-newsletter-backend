@@ -2,6 +2,7 @@ from distutils.command.upload import upload
 from django.db import models
 from django.conf import settings
 from django.db.models.deletion import CASCADE
+from django.contrib.auth import get_user_model
 
 from gdstorage.storage import GoogleDriveStorage
 
@@ -17,6 +18,14 @@ class Post(models.Model):
     image = models.ImageField(blank=True, upload_to='posts', storage=gd_storage)
     def __str__(self) -> str:
         return f'post: {self.title}'
+
+    def get_author_name(self):
+        user_model = get_user_model()
+        user = user_model.objects.get(email=self.author)
+        return {
+            "first_name": user.first_name,
+            "last_name": user.last_name
+        }
 
 class Comment(models.Model):
     content = models.TextField()
@@ -49,6 +58,7 @@ class SuggestionVote(models.Model):
         return f'lvote on {self.suggestion} on suggestion {self.suggestion}'
 
 class PostLike(models.Model):
+    # change this to use choices, see drf documentation
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     from_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     like = models.BooleanField(default=False)

@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from django.contrib.auth import get_user_model
 
 class PostViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     serializer_class = PostSerializer
     queryset = Post.objects.all()
 
@@ -23,6 +23,15 @@ class PostViewSet(viewsets.ModelViewSet):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    @action(detail=False) # detail determines if should use a primary key in url
+    def get_posts_with_author(self, request):
+        posts = Post.objects.all()
+        serializer = PostSerializer(posts, many=True)
+        for i,post in enumerate(posts):
+            name_dict = post.get_author_name()
+            serializer.data[i]['author'] = name_dict
+        return Response(serializer.data)
 
 class CommentViewSet(viewsets.ModelViewSet):
     serializer_class = CommentSerializer
