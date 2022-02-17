@@ -15,9 +15,17 @@ class PostSerializer(serializers.ModelSerializer):
         }
     
 class CommentSerializer(serializers.ModelSerializer):
+    author_names = serializers.SerializerMethodField()
+
     class Meta:
         model = Comment
         fields = "__all__"
+
+    def get_author_names(self, obj):
+        return {
+            "first_name": obj.author.first_name,
+            "last_name": obj.author.last_name
+        }
 
 class PostLikeSerializer(serializers.ModelSerializer):
     class Meta:
