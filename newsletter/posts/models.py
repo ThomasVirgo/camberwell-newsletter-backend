@@ -28,27 +28,6 @@ class Comment(models.Model):
     def __str__(self) -> str:
         return f'comment:  {self.content}'
 
-class Suggestion(models.Model):
-    content = models.TextField()
-    date = models.DateTimeField(auto_now_add=True)
-    def __str__(self) -> str:
-        return f'post: {self.content}'
-
-class SuggestionComment(models.Model):
-    content = models.TextField()
-    date = models.DateTimeField(auto_now_add=True)
-    suggestion = models.ForeignKey(Suggestion, on_delete=models.CASCADE)
-    def __str__(self) -> str:
-        return f'comment:  {self.content}'
-
-class SuggestionVote(models.Model):
-    up_vote = models.BooleanField(default=False)
-    down_vote = models.BooleanField(default=False)
-    date = models.DateTimeField(auto_now_add=True)
-    suggestion = models.ForeignKey(Suggestion, on_delete=models.CASCADE)
-    author = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
-    def __str__(self) -> str:
-        return f'lvote on {self.suggestion} on suggestion {self.suggestion}'
 
 class PostLike(models.Model):
     # change this to use choices, see drf documentation

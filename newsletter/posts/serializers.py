@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Post, Comment, PostLike, CommentLike, Suggestion, SuggestionComment, SuggestionVote
+from .models import Post, Comment, PostLike, CommentLike
 
 class PostSerializer(serializers.ModelSerializer):
     author_names = serializers.SerializerMethodField()
@@ -27,19 +27,4 @@ class PostLikeSerializer(serializers.ModelSerializer):
 class CommentLikeSerializer(serializers.ModelSerializer):
     class Meta:
         model = CommentLike
-        fields = "__all__"
-
-class SuggestionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Suggestion
-        fields = "__all__"
-
-class SuggestionCommentSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = SuggestionComment
-        fields = "__all__"
-
-class SuggestionVoteSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = SuggestionVote
         fields = "__all__"

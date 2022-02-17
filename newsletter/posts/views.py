@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from .models import Post, CommentLike, Comment, PostLike, Suggestion, SuggestionComment, SuggestionVote
-from .serializers import PostSerializer, PostLikeSerializer, CommentLikeSerializer, CommentSerializer, SuggestionSerializer, SuggestionCommentSerializer, SuggestionVoteSerializer
+from .models import Post, CommentLike, Comment, PostLike
+from .serializers import PostSerializer, PostLikeSerializer, CommentLikeSerializer, CommentSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from rest_framework.decorators import action
@@ -54,15 +54,3 @@ class CommentLikeViewSet(viewsets.ModelViewSet):
 class PostLikeViewSet(viewsets.ModelViewSet):
     serializer_class = PostLikeSerializer
     queryset = PostLike.objects.all()
-
-class SuggestionViewSet(viewsets.ModelViewSet):
-    serializer_class = SuggestionSerializer
-    queryset = Suggestion.objects.all()
-
-class SuggestionCommentViewSet(viewsets.ModelViewSet):
-    serializer_class = PostLikeSerializer
-    queryset = SuggestionComment.objects.all()
-
-class SuggestionVoteViewSet(viewsets.ModelViewSet):
-    serializer_class = SuggestionVoteSerializer
-    queryset = SuggestionVote.objects.all()
