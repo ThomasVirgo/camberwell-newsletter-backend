@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from .models import Post, CommentLike, Comment, PostLike
-from .serializers import PostSerializer, PostLikeSerializer, CommentLikeSerializer, CommentSerializer
+from .models import Post, CommentLike, Comment, PostLike, Meal, MealComment
+from .serializers import PostSerializer, PostLikeSerializer, CommentLikeSerializer, CommentSerializer, MealCommentSerializer, MealSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from rest_framework.decorators import action
@@ -54,3 +54,11 @@ class CommentLikeViewSet(viewsets.ModelViewSet):
 class PostLikeViewSet(viewsets.ModelViewSet):
     serializer_class = PostLikeSerializer
     queryset = PostLike.objects.all()
+
+class MealViewSet(viewsets.ModelViewSet):
+    serializer_class = MealSerializer
+    queryset = Meal.objects.all()
+
+class MealCommentViewSet(viewsets.ModelViewSet):
+    serializer_class = MealCommentSerializer
+    queryset = MealComment.objects.all()
