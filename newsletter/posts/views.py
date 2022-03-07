@@ -62,3 +62,21 @@ class MealViewSet(viewsets.ModelViewSet):
 class MealCommentViewSet(viewsets.ModelViewSet):
     serializer_class = MealCommentSerializer
     queryset = MealComment.objects.all()
+
+    @action(detail=True)
+    def comments_on_post(self, request, pk):
+        comments = MealComment.objects.filter(meal=pk)
+        serializer = MealCommentSerializer(comments, many=True)
+        return Response(serializer.data)
+
+    @action(detail=False, methods=['post'])
+    def add_comment_by_email(self, request):
+        user_model = get_user_model()
+        user = user_model.objects.get(email=request.data['author'])
+        new_data = request.data
+        new_data['author'] = user.id
+        serializer = MealCommentSerializer(data=new_data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
