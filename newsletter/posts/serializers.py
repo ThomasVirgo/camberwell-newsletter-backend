@@ -3,6 +3,7 @@ from .models import Post, Comment, PostLike, CommentLike, Meal, MealComment
 
 class PostSerializer(serializers.ModelSerializer):
     author_names = serializers.SerializerMethodField()
+    type = serializers.ReadOnlyField(default='post')
 
     class Meta:
         model = Post
@@ -38,6 +39,7 @@ class CommentLikeSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class MealSerializer(serializers.ModelSerializer):
+    type = serializers.ReadOnlyField(default='meal')
     class Meta:
         model = Meal
         fields = "__all__"
