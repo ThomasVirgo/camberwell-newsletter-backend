@@ -38,11 +38,6 @@ class CommentLikeSerializer(serializers.ModelSerializer):
         model = CommentLike
         fields = "__all__"
 
-class MealSerializer(serializers.ModelSerializer):
-    type = serializers.ReadOnlyField(default='meal')
-    class Meta:
-        model = Meal
-        fields = "__all__"
 
 class MealCommentSerializer(serializers.ModelSerializer):
     author_names = serializers.SerializerMethodField()
@@ -54,3 +49,27 @@ class MealCommentSerializer(serializers.ModelSerializer):
             "first_name": obj.author.first_name,
             "last_name": obj.author.last_name
         }
+    def validate(self, data):
+        """
+        Check that the user has not already created a comment on that meal.
+        """
+        user_comments = MealComment.objects.filter(author=data['author'].id, meal=data['meal'].id)
+        print(data['author'].id)
+        if len(user_comments) > 0:
+            print('raised val error', len(user_comments))
+            raise serializers.ValidationError("User has already created a comment on this meal.")
+        return data
+
+class MealSerializer(serializers.ModelSerializer):
+    type = serializers.ReadOnlyField(default='meal')
+    # must make sure that you have the related name set in the model and this must match the variable name
+    comments = serializers.SlugRelatedField(
+            many=True, 
+            read_only=True,
+            slug_field="rating"
+    )
+    # comments = MealCommentSerializer(many=True)
+    class Meta:
+        model = Meal
+        fields = "__all__"
+        

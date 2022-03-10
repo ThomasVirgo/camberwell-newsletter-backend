@@ -67,7 +67,7 @@ class MealComment(models.Model): # need to add validation that they havent alrea
      )
     date = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
-    meal = models.ForeignKey(Meal, on_delete=models.CASCADE)
+    meal = models.ForeignKey(Meal, on_delete=models.CASCADE, related_name="comments")
     def __str__(self) -> str:
         return f'comment:  {self.content}'
 
