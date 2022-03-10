@@ -1,4 +1,5 @@
 from rest_framework import viewsets
+from rest_framework.views import APIView
 from .models import Post, CommentLike, Comment, PostLike, Meal, MealComment
 from .serializers import PostSerializer, PostLikeSerializer, CommentLikeSerializer, CommentSerializer, MealCommentSerializer, MealSerializer
 from rest_framework.permissions import IsAuthenticated
@@ -6,6 +7,7 @@ from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.contrib.auth import get_user_model
+from .send_mail import create_and_send_mail
 
 class PostViewSet(viewsets.ModelViewSet):
     # permission_classes = [IsAuthenticated]
@@ -62,7 +64,7 @@ class MealViewSet(viewsets.ModelViewSet):
 class MealCommentViewSet(viewsets.ModelViewSet):
     serializer_class = MealCommentSerializer
     queryset = MealComment.objects.all()
-
+    
     @action(detail=True)
     def comments_on_post(self, request, pk):
         comments = MealComment.objects.filter(meal=pk)
@@ -80,3 +82,9 @@ class MealCommentViewSet(viewsets.ModelViewSet):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+class SendEmail(APIView):
+    def get(self, request, format=None):
+        create_and_send_mail('Test', {"Hi": "MOM"}, ['tomcvirgo@gmail.com',])
+        return Response({"Email": "Attempted"})

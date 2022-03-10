@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Post, Comment, PostLike, CommentLike, Meal, MealComment
+from .send_mail import create_and_send_mail
 
 class PostSerializer(serializers.ModelSerializer):
     author_names = serializers.SerializerMethodField()
@@ -54,9 +55,7 @@ class MealCommentSerializer(serializers.ModelSerializer):
         Check that the user has not already created a comment on that meal.
         """
         user_comments = MealComment.objects.filter(author=data['author'].id, meal=data['meal'].id)
-        print(data['author'].id)
         if len(user_comments) > 0:
-            print('raised val error', len(user_comments))
             raise serializers.ValidationError("User has already created a comment on this meal.")
         return data
 

@@ -67,7 +67,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'newsletter.urls'
-
+# SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
+# os.path.join(SETTINGS_PATH, 'templates')
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
