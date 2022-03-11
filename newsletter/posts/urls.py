@@ -13,5 +13,5 @@ router.register(r'meal_comments', views.MealCommentViewSet, basename='meal comme
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('send_mail/', views.SendEmail.as_view()),
+    path('new_meal_email/', views.NewMealEmail.as_view()),
     ]

@@ -59,7 +59,7 @@ class PostLikeViewSet(viewsets.ModelViewSet):
 
 class MealViewSet(viewsets.ModelViewSet):
     serializer_class = MealSerializer
-    queryset = Meal.objects.all()
+    queryset = Meal.objects.all().order_by('-date')
 
 class MealCommentViewSet(viewsets.ModelViewSet):
     serializer_class = MealCommentSerializer
@@ -84,7 +84,15 @@ class MealCommentViewSet(viewsets.ModelViewSet):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 
-class SendEmail(APIView):
-    def get(self, request, format=None):
-        create_and_send_mail('Test', {"Hi": "MOM"}, ['tomcvirgo@gmail.com',])
+class NewMealEmail(APIView):
+    def post(self, request, format=None):
+        '''send an email to all users to tell them a new meal has been added to the app and they can view it at the link'''
+        context = {
+            "title": request.data['title'],
+            "image": request.data['image'],
+            "description": request.data['description'],
+            "made_by": request.data['made_by']
+        }
+        subject = f'{request.data["made_by"]} made dinner!'
+        create_and_send_mail(subject, context, ['tomcvirgo@gmail.com',], 'new_meal.html')
         return Response({"Email": "Attempted"})
