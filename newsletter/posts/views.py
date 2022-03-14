@@ -12,7 +12,7 @@ from .send_mail import create_and_send_mail
 class PostViewSet(viewsets.ModelViewSet):
     # permission_classes = [IsAuthenticated]
     serializer_class = PostSerializer
-    queryset = Post.objects.all()
+    queryset = Post.objects.all().order_by('-date')
 
     @action(detail=False, methods=['post'])
     def add_post_by_email(self, request):
